@@ -93,10 +93,30 @@
       font-size: 18px;
       font-weight: bold;
     }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #333333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .back-button:hover {
+      background-color: #555555;
+    }
   </style>
 </head>
 <body>
-  <h1>Tic Tac Toe Singleplayer</h1>
+  <a href="https://nevan32.github.io/TicTacToe.github.io/" class="back-button">Kembali</a>
+  <h1>Tic Tac Toe</h1>
   <div class="controls">
     <label>Board Size:
       <select id="board-size">
@@ -115,8 +135,7 @@
   <div id="status">Giliran Anda!</div>
   <div id="game-container"></div>
   <button id="reset-btn">Reset Game</button>
-   <p>Dibuat Oleh Raya</p>
-  <script>
+  <p>Dibuat Oleh Raya</p>  <script>
     let board = [];
     let currentPlayer = "X";
     let boardSize = 3;
@@ -311,5 +330,6 @@
 
     startGame();
   </script>
-  </body>
-  </html>
+
+</body>
+</html>
