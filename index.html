@@ -49,14 +49,14 @@
     }
 
     .cell {
-      width: 60px;
-      height: 60px;
+      width: 100px;
+      height: 100px;
       background-color: #333333; /* Warna abu-abu */
       border: 2px solid black;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 20px;
+      font-size: 36px;
       font-weight: bold;
       cursor: pointer;
     }
@@ -80,12 +80,12 @@
 
     .line-red {
       background-color: red;
-      height: 4px;
+      height: 8px;
     }
 
     .line-blue {
       background-color: blue;
-      height: 4px;
+      height: 8px;
     }
 
     #status {
@@ -160,8 +160,8 @@
 
       boardElement.innerHTML = "";
       boardElement.className = "board";
-      boardElement.style.gridTemplateColumns = `repeat(${boardSize}, 60px)`;
-      boardElement.style.gridTemplateRows = `repeat(${boardSize}, 60px)`;
+      boardElement.style.gridTemplateColumns = `repeat(${boardSize}, 100px)`;
+      boardElement.style.gridTemplateRows = `repeat(${boardSize}, 100px)`;
 
       renderBoard();
       statusElement.textContent = "Giliran Anda!";
@@ -302,31 +302,35 @@
     function isDraw() {
       return board.flat().every(cell => cell);
     }
+function drawWinningLine(player, start, end) {
+  const line = document.createElement("div");
+  line.classList.add("winning-line", player === "X" ? "line-red" : "line-blue");
 
-    function drawWinningLine(player, start, end) {
-      const line = document.createElement("div");
-      line.classList.add("winning-line", player === "X" ? "line-red" : "line-blue");
+  const cellSize = 100; // Ukuran sel (100px sesuai CSS)
+  const startX = start[1] * cellSize + cellSize / 2; // Titik tengah sel awal (X)
+  const startY = start[0] * cellSize + cellSize / 2; // Titik tengah sel awal (Y)
+  const endX = end[1] * cellSize + cellSize / 2;     // Titik tengah sel akhir (X)
+  const endY = end[0] * cellSize + cellSize / 2;     // Titik tengah sel akhir (Y)
 
-      const cellSize = 60;
-      const startX = start[1] * cellSize + cellSize / 2;
-      const startY = start[0] * cellSize + cellSize / 2;
-      const endX = end[1] * cellSize + cellSize / 2;
-      const endY = end[0] * cellSize + cellSize / 2;
+  // Panjang garis + sedikit tambahan untuk menutupi seluruh board
+  const length = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2) + cellSize / 2;
 
-      const length = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
-      const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+  const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
 
-      line.style.width = `${length}px`;
-      line.style.height = "4px";
-      line.style.backgroundColor = player === "X" ? "red" : "blue";
-      line.style.position = "absolute";
-      line.style.transform = `rotate(${angle}deg)`;
-      line.style.left = `${startX}px`;
-      line.style.top = `${startY}px`;
-      line.style.transformOrigin = "0 50%";
+  // Gaya garis
+  line.style.width = `${length}px`;
+  line.style.height = "8px"; // Tebal garis
+  line.style.backgroundColor = player === "X" ? "red" : "blue";
+  line.style.position = "absolute";
+  line.style.transform = `rotate(${angle}deg)`;
+  line.style.left = `${startX}px`;
+  line.style.top = `${startY}px`;
+  line.style.transformOrigin = "0 50%";
 
-      boardElement.appendChild(line);
-    }
+  boardElement.appendChild(line);
+}
+
+
 
     startGame();
   </script>
